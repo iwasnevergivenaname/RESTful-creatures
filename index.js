@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const ejsLayouts = require("express-ejs-layouts");
+const fs = require("fs");
 const PORT = 4200;
 
 app.set("view engine", "ejs");
@@ -11,7 +12,10 @@ app.get("/", (req, res) => {
 })
 
 app.get("/dinosaurs", (req, res) => {
-    res.send("dino");
+    let dinosaurs = fs.readFileSync("./dinosaurs.json");
+    // make that nasty json legible
+    let dinoData = JSON.parse(dinosaurs);
+    res.render("dinosaurs/index", {myDinos: dinoData});
 })
 
 app.listen(PORT, () => {
