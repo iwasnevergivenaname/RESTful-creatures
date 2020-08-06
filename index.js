@@ -10,6 +10,10 @@ app.get("/", (req, res) => {
     res.render("home");
 })
 
+app.get("/dinosaurs", (req, res) => {
+    res.send("dino");
+})
+
 app.listen(PORT, () => {
     console.log(`lisenting to port #${PORT}`);
 })
