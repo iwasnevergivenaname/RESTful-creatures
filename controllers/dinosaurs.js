@@ -20,7 +20,19 @@ router.get("/dinosaurs/new", (req, res) => {
     res.render("dinosaurs/new");
 })
 
-router.get("/dinosaurs/:id", (req, res) => {
+router.get("/edit/:id", (req, res) => {
+    let dinosaurs = fs.readFileSync("./dinosaurs.json");
+    let dinoData = JSON.parse(dinosaurs);
+    res.render("dinosaurs/edit", {dino: dinoData[req.params.id], dinoId: req.params.id});
+})
+
+router.put("/:id", (req, res) => {
+    let dinosaurs = fs.readFileSync("./dinosaurs.json");
+    let dinoData = JSON.parse(dinosaurs);
+    dinosaurs[req.params.id].name = req.body.name;
+})
+
+router.get("/:id", (req, res) => {
     let dinosaurs = fs.readFileSync("./dinosaurs.json");
     let dinoData = JSON.parse(dinosaurs);
     // needs an index not a string
@@ -36,6 +48,14 @@ router.post("/", (req, res) => {
     fs.writeFileSync("../dinosaurs.json", JSON.stringify(dinoData));
     // send back to /dinosaurs page at end
     res.redirect("/dinosaurs");
+})
+
+router.delete("/:id", (req, res) => {
+    let dinosaurs = fs.readFileSync("./dinosaurs.json");
+    dinosaurs = JSON.parse(dinosaurs);
+    dinosaurs.splice(req.params.id, 1);
+    fs.writeFileSync("./dinosaurs.json", JSON.stringify(dinosaurs));
+    res.redirect("/");
 })
 
 module.exports = router;
