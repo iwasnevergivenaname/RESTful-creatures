@@ -1,5 +1,11 @@
+<form method="GET" action="/dinosaurs">
+    <label for="nameFilter">Filter by name:</label>
+    <input id="nameFilter" type="text" name="nameFilter">
+    <input type="submit">
+</form>
+
 <ul>
     <% myDino.forEach((dino) => { %>
-       <li><%= dino.name %> is a <%= dino.type %></li>
-  <%  }) %>
+        <li><%= dino.name %> is a <%= dino.type %></li>
+    <% }) %>
 </ul>

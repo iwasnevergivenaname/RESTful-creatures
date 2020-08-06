@@ -14,10 +14,19 @@ app.get("/", (req, res) => {
     res.render("home");
 })
 
+// index
 app.get("/dinosaurs", (req, res) => {
     let dinosaurs = fs.readFileSync("./dinosaurs.json");
     // make that nasty json legible
     let dinoData = JSON.parse(dinosaurs);
+
+    let nameFilter = req.query.nameFilter;
+    if (nameFilter) {
+        dinoData = dinoData.filter((dino) => {
+            return dino.name.toLowerCase() === nameFilter.toLowerCase();
+        })
+    }
+
     res.render("dinosaurs/index", {myDino: dinoData});
 })
 
