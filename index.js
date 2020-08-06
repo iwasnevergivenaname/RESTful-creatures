@@ -34,7 +34,13 @@ app.get("/dinosaurs/:id", (req, res) => {
 })
 
 app.post("/dinosaurs", (req, res) => {
-    console.log(req.body);
+    let dinosaurs = fs.readFileSync("./dinosaurs.json");
+    let dinoData = JSON.parse(dinosaurs);
+    dinoData.push(req.body);
+    // JSON stringify undoes JSON parse
+    fs.writeFileSync("./dinosaurs.json", JSON.stringify(dinoData));
+    // send back to /dinosaurs page at end
+    res.redirect("/dinosaurs");
 })
 
 app.listen(PORT, () => {
