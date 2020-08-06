@@ -2,10 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 
-
-
 router.get("/", (req, res) => {
-    console.log("looking for dino");
     let dinosaurs = fs.readFileSync("./dinosaurs.json");
 // make that nasty json legible
     let dinoData = JSON.parse(dinosaurs);
@@ -16,7 +13,6 @@ router.get("/", (req, res) => {
             return dino.name.toLowerCase() === nameFilter.toLowerCase();
         })
     }
-    console.log("looking for dino");
     res.render("dinosaurs/index", {myDino: dinoData});
 })
 
@@ -32,8 +28,7 @@ router.get("/dinosaurs/:id", (req, res) => {
     res.render("dinosaurs/show", {myDino: dinoData[dinoIndex]})
 })
 
-router.post("/dinosaurs", (req, res) => {
-    console.log("looking for dino");
+router.post("/", (req, res) => {
     let dinosaurs = fs.readFileSync("./dinosaurs.json");
     let dinoData = JSON.parse(dinosaurs);
     dinoData.push(req.body);

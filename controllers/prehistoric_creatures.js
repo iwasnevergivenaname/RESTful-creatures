@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 
-
-
 router.get("/", (req, res) => {
     let creatures = fs.readFileSync("./prehistoric_creatures.json");
     let creatureData = JSON.parse(creatures);
@@ -31,7 +29,7 @@ router.get("/prehistoric_creatures/:id", (req, res) => {
     res.render("prehistoric_creatures/show", {myCreature: creatureData[creatureIndex]})
 })
 
-router.post("/prehistoric_creatures", (req, res) => {
+router.post("/", (req, res) => {
     let creatures = fs.readFileSync("./prehistoric_creatures.json");
     let creatureData = JSON.parse(creatures);
     creatureData.push(req.body);
